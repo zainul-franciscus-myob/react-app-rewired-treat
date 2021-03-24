@@ -8,11 +8,13 @@ module.exports = function override(config, env) {
 
   newConfig.plugins = [
     new TreatPlugin({
-      // outputLoaders: [MiniCssExtractPlugin.loader],
+      //Adding this outputLoader causes errors
+      outputLoaders: [MiniCssExtractPlugin.loader],
       localIdentName: "_[name]-[local]_[hash:base64:5]",
       themeIdentName: "__[name]-[local]_[hash:base64:4]",
     }),
-    // new MiniCssExtractPlugin(),
+    //Adding this outputLoader causes errors
+    new MiniCssExtractPlugin(),
   ].concat(newConfig.plugins);
 
   // Overcome issue around babel-loader in react-scripts
