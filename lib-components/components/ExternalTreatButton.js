@@ -1,8 +1,10 @@
 import React from "react";
-import * as styles from "./ExternalTreatButton.treat";
+import { useStyles } from "./ThemeProvider";
+import * as styleRefs from "./ExternalTreatButton.treat";
 
-const ExternalTreatButton = ({ children }) => (
-  <button className={styles.button}>{children}</button>
-);
+const ExternalTreatButton = ({ children }) => {
+  const styles = useStyles(styleRefs);
+  return <button className={styles.button}>{children}</button>;
+};
 
 export default ExternalTreatButton;
