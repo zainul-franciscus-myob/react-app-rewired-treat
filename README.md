@@ -30,3 +30,6 @@ Build the app
 npm run build
 ```
 
+### Errors:
+- By default, this will inject styles into the page via style-loader, but when `mini-css-extract-plugin` is added to export static CSS files errors occur when building the app. 
+
