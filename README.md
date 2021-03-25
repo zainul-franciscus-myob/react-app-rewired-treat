@@ -27,7 +27,3 @@ Build the app
 npm run build
 ```
 
-### Errors:
-- When `mini-css-extract-plugin` is added to the webpack config to export static CSS files errors occur when building the app.
-- No errors with build when style-loader used to inject styles into the page.
-
