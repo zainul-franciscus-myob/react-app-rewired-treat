@@ -1,7 +1,7 @@
 import React from "react";
 // import "./App.css";
 
-import InternalTreatButton from "./components/InternalTreatButton";
+import InternalTreatButton from "./components/InternalTreatButton/InternalTreatButton";
 
 function App() {
   return (
