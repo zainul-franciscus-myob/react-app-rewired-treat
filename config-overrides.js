@@ -1,18 +1,14 @@
 /* config-overrides.js */
-const TreatPlugin = require("treat/webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
+const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin');
 
 module.exports = function override(config, env) {
   const newConfig = { ...config };
 
   // Add treat plugin for treat styles
   newConfig.plugins = [
-    new TreatPlugin({
-      outputLoaders: [MiniCssExtractPlugin.loader],
-      localIdentName: "_[name]-[local]_[hash:base64:5]",
-      themeIdentName: "__[name]-[local]_[hash:base64:4]",
-    }),
+    new VanillaExtractPlugin(),
     new MiniCssExtractPlugin(),
   ].concat(newConfig.plugins);
 
@@ -36,7 +32,7 @@ module.exports = function override(config, env) {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: ["@babel/plugin-proposal-class-properties"],
+            plugins: ["@babel/plugin-proposal-class-properties","@vanilla-extract/babel-plugin"],
           },
         },
       ],
