@@ -1,47 +1,69 @@
-/* config-overrides.js */
 const TreatPlugin = require("treat/webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
-module.exports = function override(config, env) {
-  const newConfig = { ...config };
+module.exports = function (config, env) {
 
-  // Add treat plugin for treat styles
-  newConfig.plugins = [
-    new TreatPlugin({
-      outputLoaders: [MiniCssExtractPlugin.loader],
-      localIdentName: "_[name]-[local]_[hash:base64:5]",
-      themeIdentName: "__[name]-[local]_[hash:base64:4]",
-    }),
-    new MiniCssExtractPlugin(),
-  ].concat(newConfig.plugins);
+    const devPlugin = {
+        hmr: process.env.NODE_ENV === "development",
+        localIdentName: '_[name]-[local]_[hash:base64:5]',
+        themeIdentName: '__[name]-[local]_[hash:base64:4]',
+    };
 
-  // Overcome issue around babel-loader in react-scripts
-  newConfig.resolve = {
-    ...newConfig.resolve,
-    alias: {
-      ...newConfig.resolve.alias,
-      "babel-loader": "node_modules/babel-loader/lib/index.js",
-    },
-  };
+    const prodPlugin = {
+        outputLoaders: [
+            {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    hmr: process.env.NODE_ENV === "development",
+                    reloadAll: true, // Required for treat HMR to work
+                },
+            },
 
-  // Transpile my external lib "lib-components"
-  newConfig.module.rules = [
-    ...newConfig.module.rules,
-    {
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules\/(?!lib-components)/,
-      use: [
-        {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: ["@babel/plugin-proposal-class-properties"],
-          },
-        },
-      ],
-    },
-  ];
+        ], ...devPlugin
+    };
 
-  return newConfig;
-};
+    config.plugins = [
+        new TreatPlugin(prodPlugin),// need to provide functionality to use devPlugin
+        new MiniCssExtractPlugin(),
+    ].concat(config.plugins);
+
+
+    config.module = {
+        rules: [
+            {
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ],
+            },
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.(js|jsx)$/,
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        '@babel/preset-env',
+                        '@babel/react',
+                    ],
+                    plugins: [
+                        ["@babel/plugin-proposal-class-properties",
+                            {
+                                "loose": true
+                            }]
+                    ]
+                }
+            }
+        ]
+    };
+
+    console.log('rules ---> ', config.module);
+
+    return config;
+}
+;
