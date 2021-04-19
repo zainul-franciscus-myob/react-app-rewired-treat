@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@myob/design-tokens": "^6.8.1-DES-390.2",
-    "@myob/myob-styles": "^6.8.1-DES-390.2",
-    "@myob/myob-widgets": "^6.8.1-DES-390.2",
+    "@myob/myob-styles": "6.8.1-feelix7.1",
+    "@myob/myob-widgets": "6.8.1-feelix7.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "16.8.0",
+    "react-dom": "16.8.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
@@ -43,6 +42,7 @@
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "css-loader": "^5.1.3",
@@ -50,6 +50,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "react-app-rewired": "^2.1.8",
     "source-map-explorer": "^2.5.2",
+    "terser-webpack-plugin": "4.2.3",
     "treat": "^1.6.0"
   }
 }
